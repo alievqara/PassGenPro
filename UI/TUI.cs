@@ -16,9 +16,9 @@ namespace PassGenPro.UI
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.WriteLine($"  +{Line()}+");
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine($"  |  Dobby Password Generator{new string(' ', WIDTH - 27)}|");
+            Console.WriteLine($"  |  Dobby Password Generator{new string(' ', WIDTH - 27)}");
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine($"  |  v1.3  |  by Dobby{new string(' ', WIDTH - 22)}|");
+            Console.WriteLine($"  |  v1.3  |  by Dobby{new string(' ', WIDTH - 22)}");
             Console.WriteLine($"  +{Line()}+");
             Console.ResetColor();
             Console.WriteLine();
@@ -29,7 +29,7 @@ namespace PassGenPro.UI
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.WriteLine($"  +{Line()}+");
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine($"  |  {title}{new string(' ', Math.Max(0, WIDTH - title.Length - 3))}|");
+            Console.WriteLine($"  |  {title}{new string(' ', Math.Max(0, WIDTH - title.Length - 3))}");
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.WriteLine($"  +{Line()}+");
             Console.ResetColor();
