@@ -69,8 +69,11 @@ namespace PassGenPro.UI
             int selected = 0;
             Console.CursorVisible = false;
 
-            void Draw()
+            while (true)
             {
+                Console.Clear();
+                Banner();
+
                 Console.ForegroundColor = ConsoleColor.DarkCyan;
                 Console.WriteLine("  ╔══════════════════════════════════════╗");
                 if (title != null)
@@ -113,57 +116,72 @@ namespace PassGenPro.UI
                 Console.ForegroundColor = ConsoleColor.DarkGray;
                 Console.WriteLine("    ↑↓ hərəkət   ENTER seç");
                 Console.ResetColor();
-            }
 
-            Draw();
-
-            while (true)
-            {
                 var key = Console.ReadKey(true).Key;
-                int lines = options.Length + (title != null ? 4 : 3) + 1;
-
                 if (key == ConsoleKey.UpArrow) selected = (selected - 1 + options.Length) % options.Length;
                 else if (key == ConsoleKey.DownArrow) selected = (selected + 1) % options.Length;
                 else if (key == ConsoleKey.Enter) break;
-
-                Console.SetCursorPosition(0, Console.CursorTop - lines);
-                Draw();
             }
 
             Console.CursorVisible = true;
-            Console.WriteLine();
             return selected;
         }
 
         public static bool[] CheckboxMenu(string[] options, bool[]? defaults = null)
         {
             bool[] selected = new bool[options.Length];
-            if (defaults != null) for (int i = 0; i < Math.Min(defaults.Length, selected.Length); i++) selected[i] = defaults[i];
-            int cursor = 0; Console.CursorVisible = false;
-            void Draw()
+            if (defaults != null)
+                for (int i = 0; i < Math.Min(defaults.Length, selected.Length); i++)
+                    selected[i] = defaults[i];
+
+            int cursor = 0;
+            Console.CursorVisible = false;
+
+            while (true)
             {
-                Console.ForegroundColor = ConsoleColor.DarkGray; Console.WriteLine("  (↑↓ hərəkət  |  SPACE seç  |  A=hamı  |  N=heç biri  |  ENTER bitir)\n"); Console.ResetColor();
+                Console.Clear();
+                Banner();
+
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.WriteLine("  ↑↓ hərəkət  │  SPACE seç  │  A=hamısı  │  N=heç biri  │  ENTER bitir");
+                Console.WriteLine();
+                Console.ResetColor();
+
                 for (int i = 0; i < options.Length; i++)
                 {
                     string check = selected[i] ? "◉" : "○";
-                    if (i == cursor) { Console.ForegroundColor = ConsoleColor.Cyan; Console.Write($"  ❯ "); Console.ForegroundColor = selected[i] ? ConsoleColor.Cyan : ConsoleColor.DarkGray; Console.Write($"{check} "); Console.ForegroundColor = ConsoleColor.White; Console.WriteLine(options[i]); Console.ResetColor(); }
-                    else { Console.ForegroundColor = ConsoleColor.DarkGray; Console.Write($"    {check} "); Console.ForegroundColor = selected[i] ? ConsoleColor.White : ConsoleColor.DarkGray; Console.WriteLine(options[i]); Console.ResetColor(); }
+                    if (i == cursor)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.Write("  ❯ ");
+                        Console.ForegroundColor = selected[i] ? ConsoleColor.Cyan : ConsoleColor.DarkGray;
+                        Console.Write($"{check} ");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.WriteLine(options[i]);
+                        Console.ResetColor();
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
+                        Console.Write($"    {check} ");
+                        Console.ForegroundColor = selected[i] ? ConsoleColor.White : ConsoleColor.DarkGray;
+                        Console.WriteLine(options[i]);
+                        Console.ResetColor();
+                    }
                 }
-            }
-            Draw();
-            while (true)
-            {
-                var key = Console.ReadKey(true).Key; int lines = options.Length + 2;
+
+                var key = Console.ReadKey(true).Key;
                 if (key == ConsoleKey.UpArrow) cursor = (cursor - 1 + options.Length) % options.Length;
                 else if (key == ConsoleKey.DownArrow) cursor = (cursor + 1) % options.Length;
                 else if (key == ConsoleKey.Spacebar) selected[cursor] = !selected[cursor];
                 else if (key == ConsoleKey.Enter) break;
                 else if (key == ConsoleKey.A) for (int i = 0; i < selected.Length; i++) selected[i] = true;
                 else if (key == ConsoleKey.N) for (int i = 0; i < selected.Length; i++) selected[i] = false;
-                Console.SetCursorPosition(0, Console.CursorTop - lines);
-                Draw();
             }
-            Console.CursorVisible = true; Console.WriteLine(); return selected;
+
+            Console.CursorVisible = true;
+            Console.WriteLine();
+            return selected;
         }
 
         public static void ProgressBar(long current, long total, string extra = "", int barWidth = 48)
