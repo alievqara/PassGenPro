@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using PassGenPro.Utils;
 
@@ -15,33 +16,30 @@ namespace PassGenPro.Generators
 
             foreach (var name in names)
             {
-                // Basic variants
                 BaseGenerator.AddVariants(set, name, cfg);
 
-                // Name + birth year (Metehan2018 pattern)
                 foreach (var y in birthYears)
                 {
                     set.Add(name + y);
                     set.Add(WordUtils.Capitalize(name) + y);
                     set.Add(name.ToUpper() + y);
-                    set.Add(name + y.Substring(Math.Max(0, y.Length - 2))); // short year
-                    set.Add(WordUtils.Capitalize(name) + y.Substring(Math.Max(0, y.Length - 2)));
-                    // With symbols
+                    if (y.Length >= 2)
+                    {
+                        set.Add(name + y.Substring(y.Length - 2));
+                        set.Add(WordUtils.Capitalize(name) + y.Substring(y.Length - 2));
+                    }
                     foreach (var s in syms)
                     {
                         set.Add(WordUtils.Capitalize(name) + y + s);
                         set.Add(name + y + s);
                     }
-                    // Dot pattern
                     set.Add(WordUtils.Capitalize(name) + "." + y);
                     set.Add(name + "." + y);
                 }
 
-                // Name + numbers
                 foreach (var n in nums)
                     BaseGenerator.AddWithSuffix(set, name, n, cfg);
 
-                // Name + all years
                 if (cfg.UseYears)
                     foreach (var y in BaseGenerator.ALL_YEARS)
                     {
@@ -51,14 +49,12 @@ namespace PassGenPro.Generators
                         set.Add(WordUtils.Capitalize(name) + y + "@");
                     }
 
-                // Name + surname combos
                 foreach (var sur in surnames)
                 {
                     set.Add(name + sur);
                     set.Add(sur + name);
                     set.Add(WordUtils.Capitalize(name) + WordUtils.Capitalize(sur));
                     set.Add(WordUtils.Capitalize(sur) + WordUtils.Capitalize(name));
-                    // initials
                     if (name.Length > 0 && sur.Length > 0)
                     {
                         set.Add(name[0] + sur);
@@ -68,7 +64,6 @@ namespace PassGenPro.Generators
                         set.Add(sur + "." + name);
                         set.Add(name + "_" + sur);
                     }
-                    // With birth year
                     foreach (var y in birthYears)
                     {
                         set.Add(WordUtils.Capitalize(name) + WordUtils.Capitalize(sur) + y);
@@ -77,7 +72,6 @@ namespace PassGenPro.Generators
                     }
                 }
 
-                // Name + user words
                 foreach (var w in cfg.Words)
                 {
                     set.Add(name + w);
@@ -86,7 +80,6 @@ namespace PassGenPro.Generators
                 }
             }
 
-            // Surname alone variants
             foreach (var sur in surnames)
             {
                 BaseGenerator.AddVariants(set, sur, cfg);
@@ -100,12 +93,5 @@ namespace PassGenPro.Generators
                     BaseGenerator.AddWithSuffix(set, sur, n, cfg);
             }
         }
-
-        static int Math_Max(int a, int b) => a > b ? a : b;
-    }
-
-    file static class Math
-    {
-        public static int Max(int a, int b) => a > b ? a : b;
     }
 }
