@@ -206,7 +206,9 @@ namespace PassGenPro
 
             // Write file
             TUI.Warn($"Fayla yazılır: {cfg.OutputFile}");
-            string homePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), cfg.OutputFile);
+            string passwordsDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "Passwords");
+            Directory.CreateDirectory(passwordsDir);
+            string homePath = Path.Combine(Path.GetFullPath(passwordsDir), cfg.OutputFile);
 
             using var writer = new StreamWriter(homePath, false, Encoding.UTF8, 65536);
             long written = 0;

@@ -1,0 +1,15 @@
+C:\Users\aliev\OneDrive\Desktop\PassGenPro\bin\Debug\net6.0\passgen.exe
+C:\Users\aliev\OneDrive\Desktop\PassGenPro\bin\Debug\net6.0\passgen.deps.json
+C:\Users\aliev\OneDrive\Desktop\PassGenPro\bin\Debug\net6.0\passgen.runtimeconfig.json
+C:\Users\aliev\OneDrive\Desktop\PassGenPro\bin\Debug\net6.0\passgen.dll
+C:\Users\aliev\OneDrive\Desktop\PassGenPro\bin\Debug\net6.0\passgen.pdb
+C:\Users\aliev\OneDrive\Desktop\PassGenPro\obj\Debug\net6.0\PassGenPro.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\aliev\OneDrive\Desktop\PassGenPro\obj\Debug\net6.0\PassGenPro.AssemblyInfoInputs.cache
+C:\Users\aliev\OneDrive\Desktop\PassGenPro\obj\Debug\net6.0\PassGenPro.AssemblyInfo.cs
+C:\Users\aliev\OneDrive\Desktop\PassGenPro\obj\Debug\net6.0\PassGenPro.csproj.CoreCompileInputs.cache
+C:\Users\aliev\OneDrive\Desktop\PassGenPro\obj\Debug\net6.0\PassGenPro.sourcelink.json
+C:\Users\aliev\OneDrive\Desktop\PassGenPro\obj\Debug\net6.0\passgen.dll
+C:\Users\aliev\OneDrive\Desktop\PassGenPro\obj\Debug\net6.0\refint\passgen.dll
+C:\Users\aliev\OneDrive\Desktop\PassGenPro\obj\Debug\net6.0\passgen.pdb
+C:\Users\aliev\OneDrive\Desktop\PassGenPro\obj\Debug\net6.0\PassGenPro.genruntimeconfig.cache
+C:\Users\aliev\OneDrive\Desktop\PassGenPro\obj\Debug\net6.0\ref\passgen.dll
