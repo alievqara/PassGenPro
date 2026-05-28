@@ -10,17 +10,16 @@ namespace PassGenPro.UI
         public static void Banner()
         {
             Console.Clear();
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine(@"
-  ██████╗  █████╗ ███████╗███████╗ ██████╗ ███████╗███╗   ██╗    ██████╗ ██████╗  ██████╗ 
-  ██╔══██╗██╔══██╗██╔════╝██╔════╝██╔════╝ ██╔════╝████╗  ██║    ██╔══██╗██╔══██╗██╔═══██╗
-  ██████╔╝███████║███████╗███████╗██║  ███╗█████╗  ██╔██╗ ██║    ██████╔╝██████╔╝██║   ██║
-  ██╔═══╝ ██╔══██║╚════██║╚════██║██║   ██║██╔══╝  ██║╚██╗██║    ██╔═══╝ ██╔══██╗██║   ██║
-  ██║     ██║  ██║███████║███████║╚██████╔╝███████╗██║ ╚████║    ██║     ██║  ██║╚██████╔╝
-  ╚═╝     ╚═╝  ╚═╝╚══════╝╚══════╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝    ╚═╝     ╚═╝  ╚═╝ ╚═════╝");
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine("                          Advanced Wordlist Generator v2.0  |  by Claude\n");
+            Console.WriteLine();
+            Console.WriteLine("  ────────────────────────────────────────────");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("          Dobby Password Generator");
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.WriteLine("          v1.3  |  by Dobby");
+            Console.WriteLine("  ────────────────────────────────────────────");
             Console.ResetColor();
+            Console.WriteLine();
         }
 
         public static void SectionHeader(string title)
@@ -67,28 +66,73 @@ namespace PassGenPro.UI
 
         public static int ArrowMenu(string[] options, string? title = null)
         {
-            int selected = 0; Console.CursorVisible = false;
+            int selected = 0;
+            Console.CursorVisible = false;
+
             void Draw()
             {
-                if (title != null) { Console.ForegroundColor = ConsoleColor.DarkGray; Console.WriteLine($"  {title}"); Console.ResetColor(); }
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Console.WriteLine("  ╔══════════════════════════════════════╗");
+                if (title != null)
+                {
+                    Console.Write("  ║  ");
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.Write($"{title,-36}");
+                    Console.ForegroundColor = ConsoleColor.DarkCyan;
+                    Console.WriteLine("║");
+                    Console.WriteLine("  ╠══════════════════════════════════════╣");
+                }
+
                 for (int i = 0; i < options.Length; i++)
                 {
-                    if (i == selected) { Console.ForegroundColor = ConsoleColor.Black; Console.BackgroundColor = ConsoleColor.Cyan; Console.WriteLine($"  ❯ {options[i]}  "); Console.ResetColor(); }
-                    else { Console.ForegroundColor = ConsoleColor.DarkGray; Console.Write("    "); Console.ForegroundColor = ConsoleColor.White; Console.WriteLine(options[i]); Console.ResetColor(); }
+                    Console.ForegroundColor = ConsoleColor.DarkCyan;
+                    Console.Write("  ║  ");
+                    if (i == selected)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.Write("▶  ");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.BackgroundColor = ConsoleColor.DarkCyan;
+                        Console.Write($"{options[i],-33}");
+                        Console.ResetColor();
+                        Console.ForegroundColor = ConsoleColor.DarkCyan;
+                        Console.WriteLine("  ║");
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
+                        Console.Write("   ");
+                        Console.Write($"{options[i],-33}");
+                        Console.ForegroundColor = ConsoleColor.DarkCyan;
+                        Console.WriteLine("  ║");
+                    }
                 }
+
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Console.WriteLine("  ╚══════════════════════════════════════╝");
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.WriteLine("    ↑↓ hərəkət   ENTER seç");
+                Console.ResetColor();
             }
+
             Draw();
+
             while (true)
             {
                 var key = Console.ReadKey(true).Key;
-                int lines = options.Length + (title != null ? 1 : 0);
+                int lines = options.Length + (title != null ? 4 : 3) + 1;
+
                 if (key == ConsoleKey.UpArrow) selected = (selected - 1 + options.Length) % options.Length;
                 else if (key == ConsoleKey.DownArrow) selected = (selected + 1) % options.Length;
                 else if (key == ConsoleKey.Enter) break;
+
                 Console.SetCursorPosition(0, Console.CursorTop - lines);
                 Draw();
             }
-            Console.CursorVisible = true; Console.WriteLine(); return selected;
+
+            Console.CursorVisible = true;
+            Console.WriteLine();
+            return selected;
         }
 
         public static bool[] CheckboxMenu(string[] options, bool[]? defaults = null)
