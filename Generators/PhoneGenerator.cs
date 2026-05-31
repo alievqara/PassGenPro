@@ -1,60 +1,31 @@
-using System.Collections.Generic;
+using System;
+using System.IO;
 
 namespace PassGenPro.Generators
 {
     public static class PhoneGenerator
     {
-        public static void Generate(HashSet<string> set, Config cfg)
+        public static void GenerateToFile(string prefix, string outputPath)
         {
-            foreach (var phone in cfg.Phones)
+            using var writer = new StreamWriter(outputPath, append: false);
+
+            for (int i = 2000000; i <= 2999999; i++)
             {
-                // Remove non-digits
-                var digits = "";
-                foreach (var c in phone) if (char.IsDigit(c)) digits += c;
+                writer.WriteLine(prefix + i.ToString()); // 0502000000
+            }
 
-                if (digits.Length < 7) continue;
+            Console.WriteLine($"Tamamlandı: {outputPath}");
+        }
 
-                set.Add(digits);
-                set.Add(phone); // original format
+        public static void GenerateAll(string[] prefixes, string outputDir)
+        {
+            Directory.CreateDirectory(outputDir);
 
-                // Different prefix formats
-                if (digits.Length == 10)
-                {
-                    set.Add("0" + digits);
-                    set.Add("+994" + digits.Substring(1));
-                    set.Add("994" + digits.Substring(1));
-                    set.Add("+90" + digits);
-                    set.Add("+7" + digits);
-                    // Parts
-                    set.Add(digits.Substring(0, 7));
-                    set.Add(digits.Substring(3));
-                    set.Add(digits.Substring(digits.Length - 7));
-                }
-
-                if (digits.Length >= 9)
-                {
-                    set.Add(digits.Substring(digits.Length - 9));
-                    set.Add(digits.Substring(digits.Length - 8));
-                }
-
-                // With symbols
-                foreach (var s in new[] { "!", "@", "#" })
-                {
-                    set.Add(digits + s);
-                    set.Add(phone + s);
-                }
-
-                // Combine with words
-                foreach (var w in cfg.Words)
-                {
-                    set.Add(w + digits);
-                    set.Add(digits + w);
-                }
-                foreach (var n in cfg.Names)
-                {
-                    set.Add(n + digits);
-                    set.Add(digits + n);
-                }
+            foreach (var prefix in prefixes)
+            {
+                var filePath = Path.Combine(outputDir, $"{prefix}.txt");
+                Console.WriteLine($"Generasiya başladı: {prefix}...");
+                GenerateToFile(prefix, filePath);
             }
         }
     }
